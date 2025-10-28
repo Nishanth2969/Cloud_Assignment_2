@@ -95,13 +95,13 @@ Expected: **28/28 tests pass (100%)**
 
 ## Features
 
-- ✅ Create, read, update, delete tasks
-- ✅ Mark tasks as complete/incomplete
-- ✅ Filter by status (all, completed, uncompleted)
-- ✅ Search tasks by various fields
-- ✅ Set priority levels
-- ✅ Due date management
-- ✅ Persistent data storage with MongoDB
+- Create, read, update, delete tasks
+- Mark tasks as complete/incomplete
+- Filter by status (all, completed, uncompleted)
+- Search tasks by various fields
+- Set priority levels
+- Due date management
+- Persistent data storage with MongoDB
 
 ## Kubernetes Features Implemented
 
@@ -179,22 +179,22 @@ minikube service flask-todo-service
 
 ## Assignment Completion Status
 
-### ✅ Part 1: Application Setup
+### Part 1: Application Setup [COMPLETE]
 - Flask + MongoDB To-Do app configured and working
 
-### ✅ Part 2: Docker Containerization
+### Part 2: Docker Containerization [COMPLETE]
 - Dockerfile created
 - docker-compose.yml configured
 - Local testing successful
 - Image ready for Docker Hub
 
-### ✅ Part 3: Minikube Deployment
+### Part 3: Minikube Deployment [COMPLETE]
 - Minikube cluster running
 - MongoDB and Flask deployments created
 - Services exposed correctly
 - PersistentVolume configured
 
-### ✅ Part 5: ReplicaSets
+### Part 5: ReplicaSets [COMPLETE]
 - 3 replicas configured
 - Auto-recovery tested and verified
 - Scaling tested (2, 3, 5 replicas)
@@ -240,9 +240,4 @@ This is an academic assignment. For questions or issues, please contact the team
 
 Academic project for Cloud Computing course (Fall 2025).
 
-## Acknowledgments
 
-- Course: Cloud Computing and Big Data Systems
-- Assignment: Homework Assignment 2
-- Institution: [Your Institution]
-- Instructor: [Instructor Name]
