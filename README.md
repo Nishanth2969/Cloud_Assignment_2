@@ -8,17 +8,8 @@ This project demonstrates containerization and orchestration of a web applicatio
 
 ## Team
 
-**Nishanth** (Local Development & Minikube)
-- Part 1: Application Setup
-- Part 2: Docker Containerization
-- Part 3: Minikube Deployment
-- Part 5: ReplicaSets and Scaling
-
-**Yoga** (AWS EKS & Advanced Features)
-- Part 4: AWS EKS Deployment
-- Part 6: Rolling Updates
-- Part 7: Health Monitoring
-- Part 8: Alerting (Extra Credit)
+Nishanth Kotla (nk3968@nyu.edu)
+Yoga Sathyanarayanan (ys6678@nyu.edu)
 
 ## Technology Stack
 
