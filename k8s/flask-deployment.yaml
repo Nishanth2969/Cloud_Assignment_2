@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
       - name: flask-todo-app
-        image: flask-todo-app:latest
-        imagePullPolicy: Never
+        image: nishanth29/flask-todo-app:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
         env:
