@@ -124,14 +124,9 @@ Tests cover:
 
 ## Documentation
 
-- `README.md` - This file (project overview)
-- `STEP_BY_STEP.md` - Complete step-by-step guide
-- `SETUP_GUIDE.md` - Detailed setup with troubleshooting
-- `DEMO_SCRIPT.md` - Live demo instructions
-- `SCREENSHOTS_GUIDE.md` - Screenshot requirements
-- `INSTALLATION_GUIDE.md` - Prerequisites installation
-- `COMMANDS.txt` - Quick command reference
-- `TEST_RESULTS.txt` - Latest test results
+- `README.md` - This file (project overview and quick start guide)
+- `Cloud Documentation.pdf` - Complete assignment documentation with screenshots
+- `Cloud Documentation.docx` - Editable version of the documentation
 
 ## Key Commands
 
