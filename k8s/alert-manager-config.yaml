@@ -4,7 +4,7 @@ metadata:
   name: slack-webhook-url
   namespace: monitoring
 stringData:
-  url: "https://hooks.slack.com/services/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"
+  url: "SLACK_WEBHOOK_URL"
 ---
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
