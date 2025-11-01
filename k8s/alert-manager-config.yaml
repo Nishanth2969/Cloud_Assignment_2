@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: slack-webhook-url
+  namespace: monitoring
+stringData:
+  url: "https://hooks.slack.com/services/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"
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: slack-notifications
+  namespace: monitoring
+spec:
+  route:
+    groupBy: ['alertname']
+    groupWait: 5s
+    groupInterval: 5s
+    repeatInterval: 1h
+    receiver: 'slack'
+  receivers:
+  - name: 'slack'
+    slackConfigs:
+    - apiURL:
+        name: slack-webhook-url
+        key: url
+      channel: '#kubernetes-alerts'
+      title: 'Alert: {{ .GroupLabels.alertname }}'
+      text: '{{ range .Alerts }}{{ .Annotations.description }}{{ end }}'
+      sendResolved: true

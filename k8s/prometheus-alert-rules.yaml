@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: custom-pod-alerts
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus-stack-prometheus
+    role: alert-rules
+spec:
+  groups:
+  - name: flask-alerts
+    interval: 10s
+    rules:
+    - alert: FlaskPodDown
+      expr: kube_deployment_status_replicas{deployment="flask-todo-app",namespace="default"} < 2
+      for: 5s
+      labels:
+        severity: critical
+        namespace: monitoring
+      annotations:
+        summary: "Flask deployment has insufficient pods"
+        description: "Flask deployment has {{ $value }} pod(s), expected 2"
