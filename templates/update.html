@@ -25,6 +25,11 @@
 		<li><a href="/completed" class="{{ a3 }}">Completed</a></li>
 		<li style="float:right"><a href="/about">About</a></li>
 	</ul>
+	{% if error %}
+		<div class="alert alert-danger">
+	  		<strong>Error!</strong> {{ error }}
+		</div>
+	{% endif %}
 	<hr>
 	<h3>Update tasks with a reference</h3>
 	<form action="/action3" method="POST">
