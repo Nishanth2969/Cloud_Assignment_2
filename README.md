@@ -93,6 +93,8 @@ Expected: **28/28 tests pass (100%)**
 - Set priority levels
 - Due date management
 - Persistent data storage with MongoDB
+- Input validation with error messages
+- Exception handling for invalid data
 
 ## Kubernetes Features Implemented
 
