@@ -30,10 +30,13 @@ Yoga Sathyanarayanan (ys6678@nyu.edu)
 ├── templates/                  # HTML templates
 ├── static/                     # CSS, JS, images
 ├── k8s/                       # Kubernetes manifests
-│   ├── mongodb-deployment.yaml
+│   ├── alert-manager-config.yaml
+│   ├── cluster-config.yaml
+│   ├── flask-deployment-eks.yaml
+│   ├── flask-service.yaml
+│   ├── mongodb-deployment-eks.yaml
 │   ├── mongodb-service.yaml
-│   ├── flask-deployment.yaml
-│   └── flask-service.yaml
+│   └── prometheus-alert-rules.yaml
 ├── test-all.sh                # Comprehensive test suite
 ├── validate-setup.sh          # Setup validation
 ├── deploy-minikube.sh         # Minikube deployment script
@@ -193,13 +196,13 @@ minikube service flask-todo-service
 Latest test run: **28/28 tests passed (100%)**
 
 ```
-✓ Prerequisites Check (4/4)
-✓ Kubernetes Resources (7/7)
-✓ Pod Health Check (3/3)
-✓ Todo App Functionality (8/8)
-✓ ReplicaSet Auto-Recovery (1/1)
-✓ Scaling Tests (3/3)
-✓ Resource Configuration (2/2)
+[PASS] Prerequisites Check (4/4)
+[PASS] Kubernetes Resources (7/7)
+[PASS] Pod Health Check (3/3)
+[PASS] Todo App Functionality (8/8)
+[PASS] ReplicaSet Auto-Recovery (1/1)
+[PASS] Scaling Tests (3/3)
+[PASS] Resource Configuration (2/2)
 ```
 
 ## Troubleshooting

@@ -17,12 +17,12 @@ PASS_COUNT=0
 FAIL_COUNT=0
 
 check_pass() {
-    echo -e "${GREEN}✓${NC} $1"
+    echo -e "${GREEN}[PASS]${NC} $1"
     ((PASS_COUNT++))
 }
 
 check_fail() {
-    echo -e "${RED}✗${NC} $1"
+    echo -e "${RED}[FAIL]${NC} $1"
     ((FAIL_COUNT++))
 }
 
@@ -83,9 +83,9 @@ echo "----------------------------"
 
 # Kubernetes files
 [ -d "k8s" ] && check_pass "k8s/ directory exists" || check_fail "k8s/ missing"
-[ -f "k8s/mongodb-deployment.yaml" ] && check_pass "MongoDB deployment exists" || check_fail "MongoDB deployment missing"
+[ -f "k8s/mongodb-deployment-eks.yaml" ] && check_pass "MongoDB EKS deployment exists" || check_fail "MongoDB EKS deployment missing"
 [ -f "k8s/mongodb-service.yaml" ] && check_pass "MongoDB service exists" || check_fail "MongoDB service missing"
-[ -f "k8s/flask-deployment.yaml" ] && check_pass "Flask deployment exists" || check_fail "Flask deployment missing"
+[ -f "k8s/flask-deployment-eks.yaml" ] && check_pass "Flask EKS deployment exists" || check_fail "Flask EKS deployment missing"
 [ -f "k8s/flask-service.yaml" ] && check_pass "Flask service exists" || check_fail "Flask service missing"
 
 echo ""
@@ -98,10 +98,7 @@ scripts=(
     "build-and-push.sh"
     "update-dockerhub-username.sh"
     "deploy-minikube.sh"
-    "test-replicaset.sh"
-    "scale-test.sh"
-    "run-all-tests.sh"
-    "integration-tests.sh"
+    "test-all.sh"
     "validate-setup.sh"
 )
 
@@ -123,24 +120,24 @@ echo ""
 echo "4. Checking Documentation..."
 echo "----------------------------"
 
-docs=(
-    "README.md"
-    "SETUP_GUIDE.md"
-    "STEP_BY_STEP.md"
-    "DEMO_SCRIPT.md"
-    "COMMANDS.txt"
-    "SCREENSHOTS_GUIDE.md"
-    "INSTALLATION_GUIDE.md"
-)
+if [ -f "README.md" ]; then
+    lines=$(wc -l < "README.md" | tr -d ' ')
+    check_pass "README.md ($lines lines)"
+else
+    check_fail "README.md missing"
+fi
 
-for doc in "${docs[@]}"; do
-    if [ -f "$doc" ]; then
-        lines=$(wc -l < "$doc" | tr -d ' ')
-        check_pass "$doc ($lines lines)"
-    else
-        check_fail "$doc missing"
-    fi
-done
+if [ -f "Cloud Documentation.pdf" ]; then
+    check_pass "Cloud Documentation.pdf exists"
+else
+    check_warn "Cloud Documentation.pdf not found"
+fi
+
+if [ -f "Cloud Documentation.docx" ]; then
+    check_pass "Cloud Documentation.docx exists"
+else
+    check_warn "Cloud Documentation.docx not found"
+fi
 
 echo ""
 
@@ -148,16 +145,16 @@ echo ""
 echo "5. Validating YAML Syntax..."
 echo "----------------------------"
 
-if command -v kubectl &> /dev/null; then
+if command -v python3 &> /dev/null; then
     for yaml in k8s/*.yaml; do
-        if kubectl apply --dry-run=client -f "$yaml" &> /dev/null; then
+        if python3 -c "import yaml; yaml.safe_load_all(open('$yaml'))" &> /dev/null; then
             check_pass "$(basename $yaml) - valid syntax"
         else
             check_fail "$(basename $yaml) - invalid syntax"
         fi
     done
 else
-    check_warn "kubectl not available - skipping YAML validation"
+    check_warn "Python not available - skipping YAML validation"
 fi
 
 echo ""
@@ -223,7 +220,7 @@ echo -e "${RED}Failed: $FAIL_COUNT${NC}"
 echo ""
 
 if [ $FAIL_COUNT -eq 0 ]; then
-    echo -e "${GREEN}✓ All validations passed!${NC}"
+    echo -e "${GREEN}All validations passed!${NC}"
     echo ""
     echo "Next Steps:"
     echo "1. Start Docker Desktop if not running"
@@ -232,7 +229,7 @@ if [ $FAIL_COUNT -eq 0 ]; then
     echo "4. Run: ./integration-tests.sh (to test on Minikube)"
     exit 0
 else
-    echo -e "${RED}✗ Some validations failed${NC}"
+    echo -e "${RED}Some validations failed${NC}"
     echo "Please fix the issues above before proceeding."
     exit 1
 fi

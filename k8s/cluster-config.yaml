@@ -1,0 +1,61 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: todo-app-cluster
+  region: us-east-1
+  version: "1.31"
+
+# IAM settings
+iam:
+  withOIDC: true
+
+# Node groups (worker nodes)
+nodeGroups:
+  - name: todo-app-nodes
+    instanceType: t3.medium
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 2
+    volumeSize: 20
+    volumeType: gp3
+
+    # Labels for pod scheduling
+    labels:
+      role: worker
+      environment: dev
+
+    # SSH access
+    ssh:
+      allow: false
+
+    # IAM policies for nodes
+    iam:
+      withAddonPolicies:
+        imageBuilder: false
+        autoScaler: false
+        externalDNS: false
+        certManager: false
+        albIngress: false
+        ebs: true
+        efs: false
+        fsx: false
+        cloudWatch: true
+
+    # Tags for cost tracking
+    tags:
+      Project: "CloudAssignment2"
+      ManagedBy: "eksctl"
+      Environment: "dev"
+      Owner: "ys6678@nyu.edu"
+      CostCenter: "assignment2"
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["api", "audit", "authenticator"]
+    logRetentionInDays: 7
+
+vpc:
+  cidr: 192.168.0.0/16
+  nat:
+    gateway: Disable

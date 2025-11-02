@@ -38,8 +38,8 @@ if [ $? -eq 0 ]; then
     echo "Successfully pushed ${DOCKERHUB_USERNAME}/${IMAGE_NAME}:${TAG}"
     echo ""
     echo "Next steps:"
-    echo "1. Update k8s/flask-deployment.yaml with your Docker Hub username"
-    echo "2. Run: sed -i '' 's/your-dockerhub-username/${DOCKERHUB_USERNAME}/g' k8s/flask-deployment.yaml"
+    echo "1. Update k8s/flask-deployment-eks.yaml with your Docker Hub username"
+    echo "2. Run: sed -i '' 's/your-dockerhub-username/${DOCKERHUB_USERNAME}/g' k8s/flask-deployment-eks.yaml"
 else
     echo "Push failed!"
     exit 1

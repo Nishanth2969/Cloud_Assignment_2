@@ -17,12 +17,12 @@ FAIL_COUNT=0
 CRITICAL_FAIL=0
 
 log_pass() {
-    echo -e "${GREEN}✓ PASS: $1${NC}"
+    echo -e "${GREEN}[PASS]: $1${NC}"
     ((PASS_COUNT++))
 }
 
 log_fail() {
-    echo -e "${RED}✗ FAIL: $1${NC}"
+    echo -e "${RED}[FAIL]: $1${NC}"
     ((FAIL_COUNT++))
 }
 
@@ -357,7 +357,7 @@ echo ""
 
 if [ $FAIL_COUNT -eq 0 ]; then
     echo -e "${GREEN}╔═══════════════════════════════════╗"
-    echo -e "║  ✓✓✓ ALL TESTS PASSED! ✓✓✓   ║"
+    echo -e "║  ALL TESTS PASSED!           ║"
     echo -e "╚═══════════════════════════════════╝${NC}"
     echo ""
     echo "Final System Status:"
