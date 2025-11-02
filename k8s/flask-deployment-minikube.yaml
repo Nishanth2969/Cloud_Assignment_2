@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-todo-app
+  labels:
+    app: flask-todo-app
+spec:
+  replicas: 3  # Start with 3 replicas for Part 5
+  selector:
+    matchLabels:
+      app: flask-todo-app
+  template:
+    metadata:
+      labels:
+        app: flask-todo-app
+    spec:
+      containers:
+      - name: flask-todo-app
+        image: nishanth29/flask-todo-app:latest
+        imagePullPolicy: Never  # Use local image in Minikube
+        ports:
+        - containerPort: 5000
+          name: http
+        env:
+        - name: MONGO_HOST
+          value: "mongodb"
+        - name: MONGO_PORT
+          value: "27017"
+        - name: FLASK_ENV
+          value: "production"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+
