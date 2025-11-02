@@ -34,6 +34,8 @@ def redirect_url():
 @app.route("/list")
 def lists ():
 	#Display the all Tasks
+	if todos is None:
+		return render_template('index.html',a1="active",todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	todos_l = todos.find()
 	a1="active"
 	return render_template('index.html',a1=a1,todos=todos_l,t=title,h=heading)
@@ -42,6 +44,8 @@ def lists ():
 @app.route("/uncompleted")
 def tasks ():
 	#Display the Uncompleted Tasks
+	if todos is None:
+		return render_template('index.html',a2="active",todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	todos_l = todos.find({"done":"no"})
 	a2="active"
 	return render_template('index.html',a2=a2,todos=todos_l,t=title,h=heading)
@@ -50,6 +54,8 @@ def tasks ():
 @app.route("/completed")
 def completed ():
 	#Display the Completed Tasks
+	if todos is None:
+		return render_template('index.html',a3="active",todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	todos_l = todos.find({"done":"yes"})
 	a3="active"
 	return render_template('index.html',a3=a3,todos=todos_l,t=title,h=heading)
@@ -57,6 +63,8 @@ def completed ():
 @app.route("/done")
 def done ():
 	#Done-or-not ICON
+	if todos is None:
+		return render_template('index.html',todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	id=request.values.get("_id")
 	try:
 		task=todos.find({"_id":ObjectId(id)})
@@ -77,6 +85,8 @@ def done ():
 @app.route("/action", methods=['POST'])
 def action ():
 	#Adding a Task
+	if todos is None:
+		return render_template('index.html',todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	name=request.values.get("name")
 	desc=request.values.get("desc")
 	date=request.values.get("date")
@@ -109,6 +119,8 @@ def action ():
 @app.route("/remove")
 def remove ():
 	#Deleting a Task with various references
+	if todos is None:
+		return render_template('index.html',todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	key=request.values.get("_id")
 	try:
 		todos.delete_one({"_id":ObjectId(key)})
@@ -119,6 +131,8 @@ def remove ():
 
 @app.route("/update")
 def update ():
+	if todos is None:
+		return render_template('index.html',todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	id=request.values.get("_id")
 	try:
 		task=todos.find({"_id":ObjectId(id)})
@@ -130,6 +144,8 @@ def update ():
 @app.route("/action3", methods=['POST'])
 def action3 ():
 	#Updating a Task with various references
+	if todos is None:
+		return render_template('index.html',todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	name=request.values.get("name")
 	desc=request.values.get("desc")
 	date=request.values.get("date")
@@ -182,6 +198,8 @@ def action3 ():
 @app.route("/search", methods=['GET'])
 def search():
 	#Searching a Task with various references
+	if todos is None:
+		return render_template('searchlist.html',todos=[],t=title,h=heading,error="Database connection unavailable. Please check MongoDB.")
 	key=request.values.get("key")
 	refer=request.values.get("refer")
 	
